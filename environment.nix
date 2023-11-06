@@ -2,7 +2,7 @@
   environment = {
     localBinInPath = true;
     homeBinInPath = true;
-    shells = with pkgs; [ zsh ];
+    #shells = with pkgs; [ zsh ];
     systemPackages = with pkgs; [
       git
       gcc
