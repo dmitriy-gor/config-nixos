@@ -1,7 +1,7 @@
 { ... }: {
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/3edb64fe-6de3-43ff-b951-f1c443f3ed2d";
+      device = "/dev/disk/by-uuid/49796923-481a-497c-9742-11f73dfd1b41";
       fsType = "btrfs";
       options = [ "subvol=@" ];
     };

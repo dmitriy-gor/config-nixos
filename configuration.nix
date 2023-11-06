@@ -11,7 +11,10 @@
 
   system.stateVersion = "unstable";
 
-  swapDevices = [ ];
+  swapDevices = [
+    { device = "/dev/nvme0n1p2"; }
+  ];
+
   sound.enable = true;
 
   systemd = {
@@ -20,9 +23,9 @@
       "autovt@tty1".enable = false;
     };
     tmpfiles.rules = [
-      "L+ /run/gdm/.config/monitors.xml - - - - ${ 
-      pkgs.writeText "monitors.xml" (builtins.readFile /etc/nixos/monitors.xml)
-    }"
+      "L+ /run/gdm/.config/monitors.xml - - - - ${
+        pkgs.writeText "monitors.xml" (builtins.readFile /etc/nixos/monitors.xml)
+      }"
     ];
   };
 
@@ -30,7 +33,7 @@
     config.allowUnfree = true;
     hostPlatform = lib.mkDefault "x86_64-linux";
   };
-  
+
   networking = {
     hostName = "dg-pc";
     networkmanager.enable = true;
@@ -42,10 +45,12 @@
 
   security.rtkit.enable = true;
 
-  users.users.dg = {
-    isNormalUser = true;
-    description = "dg";
-    extraGroups = [ "networkmanager" "wheel" ];
+  users = {
+    users.dg = {
+      isNormalUser = true;
+      description = "dg";
+      extraGroups = [ "networkmanager" "wheel" ];
+    };
   };
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "perfomance";

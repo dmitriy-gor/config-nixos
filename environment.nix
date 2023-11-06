@@ -1,22 +1,37 @@
 { pkgs, ... }: {
   environment = {
     localBinInPath = true;
+    homeBinInPath = true;
+    shells = with pkgs; [ zsh ];
     systemPackages = with pkgs; [
       git
-      nil
       gcc
       nixpkgs-fmt
+      nil
+      rustup
+      nodejs_21
+      vscode-langservers-extracted
+      vscode-fhs
+      neovim
+      #
       gnomeExtensions.appindicator
       gnome.gnome-tweaks
-      rustup
-      taplo
-      nodejs_20
-      vscode-fhs
+      #
       brave
       telegram-desktop
       transmission-gtk
       vlc
-      jetbrains-toolbox
+      #
+      intel-media-driver
+      intel-ocl
+      intel-gmmlib
+      intel-compute-runtime
+      intel-graphics-compiler
+      vaapi-intel-hybrid
+      microcodeIntel
+      throttled
+      #
+      steam-run
     ];
     gnome.excludePackages = (with pkgs; [
       gnome-tour

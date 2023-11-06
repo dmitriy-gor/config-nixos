@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   services = {
+    throttled.enable = true;
     xserver = {
       enable = true;
       layout = "us";
@@ -7,7 +8,7 @@
       displayManager = {
         gdm.enable = true;
         autoLogin = {
-          enable = true;
+          enable = false;
           user = "dg";
         };
       };
@@ -19,9 +20,11 @@
         pkgs.xterm
       ];
     };
+
     udev.packages = with pkgs; [
       gnome.gnome-settings-daemon
     ];
+
     pipewire = {
       enable = true;
       alsa.enable = true;
