@@ -3,8 +3,10 @@
     throttled.enable = true;
     xserver = {
       enable = true;
-      layout = "us";
-      xkbVariant = "";
+      xkb = {
+        layout = "us";
+        variant = "";
+      };
       displayManager = {
         gdm.enable = true;
         autoLogin = {

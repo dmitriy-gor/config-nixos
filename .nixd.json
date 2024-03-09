@@ -1,0 +1,24 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nix-community/nixd/main/nixd/docs/nixd-schema.json",
+  "options": {
+    "enable": true,
+    "target": {
+      "args": [
+        "--expr",
+        "(import <nixpkgs/nixos> { configuration = ./configuration.nix; }).options"
+      ],
+      "installable": ""
+    }
+  },
+  "eval": {
+    "target": {
+      "args": [],
+      "installable": ""
+    },
+    "depth": 3,
+    "workers": 3
+  },
+  "formatting": {
+    "command": "nixpkgs-fmt"
+  }
+}

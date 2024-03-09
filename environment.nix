@@ -1,18 +1,25 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
+    
   environment = {
+    shellInit = "export PKG_CONFIG_PATH=${pkgs.openssl.dev}/lib/pkgconfig;";
     localBinInPath = true;
     homeBinInPath = true;
     #shells = with pkgs; [ zsh ];
     systemPackages = with pkgs; [
       git
       gcc
+      openssl
+      openssl.dev
+      pkg-config
       nixpkgs-fmt
-      nil
-      rustup
+      nixd
+      rustc
+      cargo
       nodejs_21
       vscode-langservers-extracted
       vscode-fhs
-      neovim
+      #taplo
+      #helix
       #
       gnomeExtensions.appindicator
       gnome.gnome-tweaks
@@ -32,6 +39,8 @@
       throttled
       #
       steam-run
+      lutris
+      wine-wayland
     ];
     gnome.excludePackages = (with pkgs; [
       gnome-tour
