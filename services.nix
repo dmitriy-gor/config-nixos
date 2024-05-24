@@ -1,6 +1,12 @@
 { pkgs, ... }: {
   services = {
-    throttled.enable = true;
+    
+    displayManager = {
+      autoLogin = {
+        enable = false;
+        user = "dg";
+      };
+    };
     xserver = {
       enable = true;
       xkb = {
@@ -9,10 +15,6 @@
       };
       displayManager = {
         gdm.enable = true;
-        autoLogin = {
-          enable = false;
-          user = "dg";
-        };
       };
       desktopManager = {
         xterm.enable = false;
