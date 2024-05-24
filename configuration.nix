@@ -1,57 +1,23 @@
-{ config, pkgs, lib, modulesPath, ... }: {
+{ pkgs, modulesPath, ... }: {
+  
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-    ./hardware.nix
-    ./fileSystems.nix
+    "${ modulesPath }/installer/scan/not-detected.nix"
     ./boot.nix
-    ./services.nix
     ./environment.nix
+    ./fileSystems.nix
+    ./hardware.nix
     ./programs.nix
+    ./services.nix
   ];
 
-  system.stateVersion = "nixos-23.11";
-
-  swapDevices = [
-    { device = "/dev/nvme0n1p2"; }
-  ];
-
-  sound.enable = true;
-
-  systemd = {
-    services = {
-      "getty@tty1".enable = false;
-      "autovt@tty1".enable = false;
-    };
-    tmpfiles.rules = [
-      "L+ /run/gdm/.config/monitors.xml - - - - ${
-        pkgs.writeText "monitors.xml" (builtins.readFile /etc/nixos/monitors.xml)
-      }"
-    ];
-  };
-
-  nixpkgs = {
-    config.allowUnfree = true;
-    hostPlatform = lib.mkDefault "x86_64-linux";
-  };
-
-  networking = {
-    hostName = "dg-pc";
-    networkmanager.enable = true;
-    useDHCP = lib.mkDefault true;
-  };
-
-  time.timeZone = "Europe/Kyiv";
-  i18n.defaultLocale = "en_US.UTF-8";
-
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  networking = { hostName = "dg-pc"; networkmanager.enable = true; };
+  nixpkgs = { config.allowUnfree = true; hostPlatform = "x86_64-linux"; };
   security.rtkit.enable = true;
-
-  users = {
-    users.dg = {
-      isNormalUser = true;
-      description = "dg";
-      extraGroups = [ "networkmanager" "wheel" ];
-    };
-  };
-
-  powerManagement.cpuFreqGovernor = lib.mkDefault "perfomance";
+  sound.enable = true;
+  swapDevices = [{ device = "/dev/nvme0n1p2"; }];
+  system.stateVersion = "nixos-unstable";
+  systemd.tmpfiles.rules = [ "L+ /run/gdm/.config/monitors.xml - - - - ${ pkgs.writeText "monitors.xml" (builtins.readFile ./monitors.xml)}" ];
+  time.timeZone = "Europe/Kyiv";
+  users.users.dg = { isNormalUser = true; extraGroups = [ "networkmanager" "wheel" ]; };
 }

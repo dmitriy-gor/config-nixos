@@ -1,14 +1,15 @@
 { config, pkgs, lib, ... }: {
   hardware = {
     pulseaudio.enable = false;
+    sensor.iio.enable = true;
     opengl = {
       enable = true;
-      driSupport32Bit = true;
       extraPackages = with pkgs; [
+        intel-compute-runtime
+        intel-gmmlib
+        intel-graphics-compiler
         intel-media-driver
         intel-ocl
-        intel-gmmlib
-        intel-compute-runtime
         vaapi-intel-hybrid
       ];
     };

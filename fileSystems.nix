@@ -1,13 +1,13 @@
 { ... }: {
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/bd19c09d-f919-4f29-9e76-67aa5649cd83";
+      device = "/dev/nvme0n1p3";
       fsType = "btrfs";
       options = [ "subvol=@" ];
     };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/42B2-2703";
+      device = "/dev/nvme0n1p1";
       fsType = "vfat";
     };
   };
