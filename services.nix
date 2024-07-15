@@ -1,6 +1,5 @@
 { pkgs, ... }: {
   services = {
-    
     displayManager = {
       autoLogin = {
         enable = false;
@@ -28,12 +27,12 @@
     udev.packages = with pkgs; [
       gnome.gnome-settings-daemon
     ];
-
     pipewire = {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
+      jack.enable = true;
     };
   };
 }

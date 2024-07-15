@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }: {
+{ pkgs, ... }: {
   hardware = {
-    pulseaudio.enable = false;
+    pulseaudio = {
+      enable = false;
+      #support32Bit = true;
+    };
     sensor.iio.enable = true;
     opengl = {
       enable = true;
@@ -13,6 +16,6 @@
         vaapi-intel-hybrid
       ];
     };
-    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    cpu.intel.updateMicrocode = true;
   };
 }

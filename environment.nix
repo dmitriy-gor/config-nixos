@@ -1,14 +1,18 @@
-{ pkgs, inputs, ... }: {
-
+{ pkgs, ... }:
+let
+  pkgs-unstable = import <nixpkgs-unstable> {
+    config = {
+      allowUnfree = true;
+    };
+    hostPlatform = "x86_64-linux";
+  };
+in
+{
   environment = {
     localBinInPath = true;
-    sessionVariables = { NIXOS_OZONE_WL = "1"; };
     shellInit = "export PKG_CONFIG_PATH=${pkgs.openssl.dev}/lib/pkgconfig;";
-    systemPackages = with pkgs; [
-      alacritty
-      appimage-run
+    systemPackages = (with pkgs; [
       brave
-      cargo
       cmake
       expat
       fontconfig
@@ -17,24 +21,29 @@
       gnome.gnome-tweaks
       gnomeExtensions.appindicator
       gparted
-      inputs.helix.packages."${pkgs.system}".helix
+      helix
       microcodeIntel
-      neovim
-      nixd
-      nixpkgs-fmt
-      nodejs_22
       openssl
       openssl.dev
       pkg-config
-      rustc
-      taplo
+      steam-run
       telegram-desktop
       transmission-gtk
       vlc
-      vscode-fhs
-      vscode-langservers-extracted
       whatsapp-for-linux
-    ];
+      wl-clipboard
+      vscode
+      torchlight
+      rustrover
+      zed
+    ]) ++ (with pkgs-unstable;[
+      cargo
+      rustc
+      nixd
+      nixpkgs-fmt
+      nodePackages_latest.nodejs
+    ]);
+
     gnome.excludePackages = with pkgs; [
       epiphany
       gnome-text-editor
